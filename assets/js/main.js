@@ -3,6 +3,29 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
+// Navbar scroll state and back-to-top visibility
+const navbar = document.querySelector('.navbar');
+const backToTop = document.getElementById('backToTop');
+
+const onScroll = () => {
+  const scrolled = window.scrollY > 24;
+  if (navbar) {
+    navbar.classList.toggle('navbar-scrolled', scrolled);
+  }
+  if (backToTop) {
+    backToTop.classList.toggle('is-visible', window.scrollY > 480);
+  }
+};
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+if (backToTop) {
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
 // Event filtering
 document.querySelectorAll('[data-filter]').forEach((button) => {
   button.addEventListener('click', () => {
