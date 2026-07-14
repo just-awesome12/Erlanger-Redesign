@@ -3,16 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Erlanger Disciples is a welcoming, multigenerational church in Erlanger, KY. Join us Sundays at 10:30am for worship, community, and service.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Erlanger Disciples Church">
+  <meta property="og:description" content="A welcoming, multigenerational church in Erlanger, KY. Join us Sundays at 10:30am.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=1200&q=80">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <title>Erlanger Disciples Church</title>
+  <script>
+    (function () {
+      var theme;
+      try { theme = localStorage.getItem('theme'); } catch (e) {}
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-bs-theme', theme);
+    })();
+  </script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
-<body>
-  <header class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-3">
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-root-margin="-20% 0px -70%" tabindex="0">
+  <header class="navbar navbar-expand-lg sticky-top py-3">
     <div class="container">
       <a class="navbar-brand fw-bold text-primary" href="#home">Erlanger Disciples</a>
+      <a class="live-badge d-none ms-2" id="liveBadge" href="https://www.youtube.com/results?search_query=erlanger+disciples" target="_blank" rel="noopener">
+        <span class="live-dot" aria-hidden="true"></span> Live Now
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -24,28 +45,43 @@
           <li class="nav-item"><a class="nav-link" href="#beliefs">Beliefs</a></li>
           <li class="nav-item"><a class="nav-link" href="#visit">Plan a Visit</a></li>
           <li class="nav-item"><a class="nav-link btn btn-primary text-white ms-lg-3" href="#contact">Contact</a></li>
+          <li class="nav-item d-flex align-items-center ms-lg-3 mt-2 mt-lg-0">
+            <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+              <i class="bi bi-moon-stars" aria-hidden="true"></i>
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
   </header>
 
   <section id="home" class="hero d-flex align-items-center text-center text-lg-start py-5">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=1920&q=80" alt="">
+    </div>
     <div class="container">
       <div class="row align-items-center g-5">
         <div class="col-lg-6">
-          <span class="badge rounded-pill bg-primary-subtle text-primary text-uppercase">A welcoming community in Erlanger, KY</span>
+          <span class="badge rounded-pill text-uppercase">A welcoming community in Erlanger, KY</span>
           <h1 class="display-4 fw-bold mt-3">Following Jesus <span class="text-gradient">Together</span></h1>
-          <p class="lead text-muted">Erlanger Disciples is a multigenerational church pursuing authentic worship, compassionate service, and transformative discipleship for the flourishing of our city.</p>
+          <p class="lead">Erlanger Disciples is a multigenerational church pursuing authentic worship, compassionate service, and transformative discipleship for the flourishing of our city.</p>
           <div class="d-flex flex-column flex-sm-row gap-3">
             <a href="#visit" class="btn btn-primary btn-lg">Plan Your Visit</a>
-            <a href="#events" class="btn btn-outline-primary btn-lg">See What's Happening</a>
+            <a href="#events" class="btn btn-outline-light btn-lg">See What's Happening</a>
           </div>
-          <div class="mt-4 small text-muted">
+          <div class="countdown mt-4" id="countdown" role="timer" aria-label="Countdown to Sunday worship">
+            <div class="countdown-item"><span class="countdown-num" id="cdDays">–</span><span class="countdown-label">days</span></div>
+            <div class="countdown-item"><span class="countdown-num" id="cdHours">–</span><span class="countdown-label">hours</span></div>
+            <div class="countdown-item"><span class="countdown-num" id="cdMins">–</span><span class="countdown-label">min</span></div>
+            <div class="countdown-item"><span class="countdown-num" id="cdSecs">–</span><span class="countdown-label">sec</span></div>
+            <div class="countdown-caption">until Sunday worship</div>
+          </div>
+          <div class="mt-4 small hero-meta">
             Sunday Worship • 10:30am • 27 Graves Ave, Erlanger, KY 41018
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="hero-card p-4 p-md-5 rounded-4 shadow-lg bg-white">
+          <div class="hero-card p-4 p-md-5 rounded-4 shadow-lg">
             <h2 class="h4 mb-3">This Week's Highlights</h2>
             <ul class="list-unstyled mb-0">
               <li class="d-flex align-items-start gap-3 mb-3">
@@ -303,18 +339,194 @@
 
   <section id="sermons" class="py-5 bg-light">
     <div class="container">
-      <div class="row g-5 align-items-center">
-        <div class="col-lg-5">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+        <div>
           <span class="section-label">Latest Teaching</span>
           <h2 class="display-6 fw-semibold">Catch up on recent messages</h2>
-          <p class="text-muted">Each week we open Scripture to discover the good news of Jesus together. Browse our archive or subscribe to the podcast for encouragement throughout the week.</p>
-          <a href="https://www.youtube.com/results?search_query=erlanger+disciples" class="btn btn-outline-primary" target="_blank" rel="noopener">Watch on YouTube</a>
+          <p class="lead text-muted mb-0">Each week we open Scripture to discover the good news of Jesus together.</p>
         </div>
-        <div class="col-lg-7">
-          <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg">
-            <iframe src="https://www.youtube.com/embed/s2_pq3NbS0w" title="Recent sermon" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <a href="https://www.youtube.com/results?search_query=erlanger+disciples" class="btn btn-outline-primary" target="_blank" rel="noopener">Watch on YouTube</a>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <a class="card sermon-card h-100" href="https://www.youtube.com/watch?v=s2_pq3NbS0w" target="_blank" rel="noopener">
+            <div class="sermon-thumb">
+              <img src="https://img.youtube.com/vi/s2_pq3NbS0w/hqdefault.jpg" alt="Sermon video thumbnail" loading="lazy">
+              <span class="play-btn" aria-hidden="true"><i class="bi bi-play-fill"></i></span>
+              <span class="sermon-duration">34 min</span>
+            </div>
+            <div class="card-body">
+              <span class="badge">Series: Rooted</span>
+              <h3 class="h5 mt-2 mb-1">Planted by Streams of Water</h3>
+              <small class="text-muted">March 17 • Pastor Jamie Carter</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a class="card sermon-card h-100" href="https://www.youtube.com/results?search_query=erlanger+disciples" target="_blank" rel="noopener">
+            <div class="sermon-thumb">
+              <img src="https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=800&q=80" alt="Open Bible on a table" loading="lazy">
+              <span class="play-btn" aria-hidden="true"><i class="bi bi-play-fill"></i></span>
+              <span class="sermon-duration">29 min</span>
+            </div>
+            <div class="card-body">
+              <span class="badge">Series: Rooted</span>
+              <h3 class="h5 mt-2 mb-1">Growing Through the Storm</h3>
+              <small class="text-muted">March 10 • Pastor Jamie Carter</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a class="card sermon-card h-100" href="https://www.youtube.com/results?search_query=erlanger+disciples" target="_blank" rel="noopener">
+            <div class="sermon-thumb">
+              <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=800&q=80" alt="Speaker teaching on stage" loading="lazy">
+              <span class="play-btn" aria-hidden="true"><i class="bi bi-play-fill"></i></span>
+              <span class="sermon-duration">31 min</span>
+            </div>
+            <div class="card-body">
+              <span class="badge">Series: Rooted</span>
+              <h3 class="h5 mt-2 mb-1">Fruit That Lasts</h3>
+              <small class="text-muted">March 3 • Rachel Kim</small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stories" class="py-5">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="section-label">Stories</span>
+        <h2 class="display-6 fw-semibold">Lives changed in community</h2>
+      </div>
+      <div id="storiesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#storiesCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Story 1"></button>
+          <button type="button" data-bs-target="#storiesCarousel" data-bs-slide-to="1" aria-label="Story 2"></button>
+          <button type="button" data-bs-target="#storiesCarousel" data-bs-slide-to="2" aria-label="Story 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="story-slide text-center">
+              <img class="story-avatar mb-3" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80" alt="Portrait of Danielle" loading="lazy">
+              <blockquote class="story-quote">"I came for the music, but I stayed for the people. This church walked with our family through the hardest year of our lives."</blockquote>
+              <div class="fw-semibold mt-3">Danielle M.</div>
+              <div class="text-muted small">Member since 2021</div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="story-slide text-center">
+              <img class="story-avatar mb-3" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="Portrait of Andre" loading="lazy">
+              <blockquote class="story-quote">"Serving at the Hope Pantry gave me a purpose I didn't know I was missing. My Wednesday group has become my family."</blockquote>
+              <div class="fw-semibold mt-3">Andre W.</div>
+              <div class="text-muted small">Community group leader</div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="story-slide text-center">
+              <img class="story-avatar mb-3" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Portrait of Kayla" loading="lazy">
+              <blockquote class="story-quote">"We visited one Sunday as new parents looking for help. Three years later, our kids run to their classes and so do we."</blockquote>
+              <div class="fw-semibold mt-3">Kayla &amp; Tom R.</div>
+              <div class="text-muted small">Kids ministry family</div>
+            </div>
           </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#storiesCarousel" data-bs-slide="prev">
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#storiesCarousel" data-bs-slide="next">
+          <i class="bi bi-chevron-right" aria-hidden="true"></i>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-label">Our Team</span>
+        <h2 class="display-6 fw-semibold">The people who will greet you</h2>
+        <p class="lead text-muted">Our staff and elders are here to help you take your next step.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-sm-6 col-lg-3">
+          <div class="card team-card h-100">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" class="team-photo" alt="Portrait of Pastor Jamie Carter" loading="lazy">
+            <div class="card-body">
+              <h3 class="h5 mb-1">Jamie Carter</h3>
+              <div class="team-role">Lead Pastor</div>
+              <p class="text-muted small mb-0">Preaching, vision, and a legendary chili recipe at church potlucks.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card team-card h-100">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80" class="team-photo" alt="Portrait of Alicia Thompson" loading="lazy">
+            <div class="card-body">
+              <h3 class="h5 mb-1">Alicia Thompson</h3>
+              <div class="team-role">Kids &amp; Families</div>
+              <p class="text-muted small mb-0">Equipping parents and making Sunday the best hour of a kid's week.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card team-card h-100">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" class="team-photo" alt="Portrait of Marcus Webb" loading="lazy">
+            <div class="card-body">
+              <h3 class="h5 mb-1">Marcus Webb</h3>
+              <div class="team-role">Worship Arts</div>
+              <p class="text-muted small mb-0">Leading our blend of modern worship and classic hymns each week.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card team-card h-100">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=80" class="team-photo" alt="Portrait of Rachel Kim" loading="lazy">
+            <div class="card-body">
+              <h3 class="h5 mb-1">Rachel Kim</h3>
+              <div class="team-role">Students &amp; Groups</div>
+              <p class="text-muted small mb-0">Building community for teens and leading our group leader cohort.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-label">Community Life</span>
+        <h2 class="display-6 fw-semibold">Moments from our life together</h2>
+      </div>
+      <div class="gallery-grid">
+        <button type="button" class="gallery-item" data-full="https://images.unsplash.com/photo-1527254059243-1baf66834aab?auto=format&fit=crop&w=1400&q=80">
+          <img src="https://images.unsplash.com/photo-1527254059243-1baf66834aab?auto=format&fit=crop&w=600&q=80" alt="Congregation worshiping together" loading="lazy">
+        </button>
+        <button type="button" class="gallery-item" data-full="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=80">
+          <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Friends laughing together outdoors" loading="lazy">
+        </button>
+        <button type="button" class="gallery-item" data-full="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1400&q=80">
+          <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=600&q=80" alt="Group joining hands in prayer" loading="lazy">
+        </button>
+        <button type="button" class="gallery-item" data-full="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=80">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80" alt="Small group studying together" loading="lazy">
+        </button>
+        <button type="button" class="gallery-item" data-full="https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?auto=format&fit=crop&w=1400&q=80">
+          <img src="https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?auto=format&fit=crop&w=600&q=80" alt="Volunteers packing food donations" loading="lazy">
+        </button>
+        <button type="button" class="gallery-item" data-full="https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=1400&q=80">
+          <img src="https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=600&q=80" alt="Open Bible during study" loading="lazy">
+        </button>
+        <button type="button" class="gallery-item" data-full="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1400&q=80">
+          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=600&q=80" alt="Hands offered in help and support" loading="lazy">
+        </button>
+        <button type="button" class="gallery-item" data-full="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=1400&q=80">
+          <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=600&q=80" alt="Worship gathering with raised hands" loading="lazy">
+        </button>
       </div>
     </div>
   </section>
@@ -339,6 +551,53 @@
         <div class="col-lg-6">
           <div class="rounded-4 overflow-hidden shadow-lg position-relative">
             <iframe title="Google Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3090.342971757267!2d-84.60119422379288!3d39.01698697169242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841c45a782d652b%3A0x1ca61f777bd3df55!2sErlanger%20Christian%20Church!5e0!3m2!1sen!2sus!4v1709161768005!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="card next-step-card">
+            <div class="card-body p-4 p-md-5">
+              <div class="row align-items-center g-4">
+                <div class="col-lg-4">
+                  <span class="section-label">New Here?</span>
+                  <h3 class="h3 mt-2 mb-2">Find your next step</h3>
+                  <p class="text-muted mb-0">Tell us where you are, and we'll point you to the best place to start.</p>
+                </div>
+                <div class="col-lg-8">
+                  <div id="nextStepOptions" class="row g-3">
+                    <div class="col-sm-6">
+                      <button type="button" class="next-step-option" data-step="new">
+                        <i class="bi bi-door-open"></i> I'm new to church
+                      </button>
+                    </div>
+                    <div class="col-sm-6">
+                      <button type="button" class="next-step-option" data-step="kids">
+                        <i class="bi bi-balloon"></i> I have kids or teens
+                      </button>
+                    </div>
+                    <div class="col-sm-6">
+                      <button type="button" class="next-step-option" data-step="community">
+                        <i class="bi bi-people"></i> I'm looking for community
+                      </button>
+                    </div>
+                    <div class="col-sm-6">
+                      <button type="button" class="next-step-option" data-step="serve">
+                        <i class="bi bi-heart"></i> I want to serve
+                      </button>
+                    </div>
+                  </div>
+                  <div id="nextStepResult" class="next-step-result d-none" role="status">
+                    <h4 class="h5 mb-2" id="nextStepTitle"></h4>
+                    <p class="text-muted mb-3" id="nextStepText"></p>
+                    <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
+                      <a class="btn btn-primary" id="nextStepCta" href="#contact"></a>
+                      <button type="button" class="btn btn-link p-0" id="nextStepReset">Start over</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -513,6 +772,15 @@
             <li>Quarterly rallies to worship and celebrate stories together</li>
           </ul>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true" aria-label="Photo viewer">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content lightbox-content">
+        <button type="button" class="btn-close lightbox-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <img id="lightboxImg" src="" alt="">
       </div>
     </div>
   </div>
