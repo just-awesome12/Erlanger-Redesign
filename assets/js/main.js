@@ -3,6 +3,34 @@ if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
+// Dark mode toggle (initial theme is set by the inline script in <head>)
+const themeToggle = document.getElementById('themeToggle');
+
+const applyThemeToToggle = (theme) => {
+  if (!themeToggle) return;
+  const icon = themeToggle.querySelector('i');
+  if (icon) {
+    icon.className = theme === 'dark' ? 'bi bi-sun' : 'bi bi-moon-stars';
+  }
+  themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+  themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+};
+
+applyThemeToToggle(document.documentElement.getAttribute('data-bs-theme'));
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-bs-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch (e) {
+      /* storage unavailable (e.g. private browsing) */
+    }
+    applyThemeToToggle(next);
+  });
+}
+
 // Navbar scroll state and back-to-top visibility
 const navbar = document.querySelector('.navbar');
 const backToTop = document.getElementById('backToTop');
